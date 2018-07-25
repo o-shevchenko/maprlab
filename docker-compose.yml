@@ -3,17 +3,14 @@ version: '3'
 services:
 
   maprinstaller:
-    image: maprtech/installer
+    image: maprinstaller
     env_file:
       - mapr-installer/installer.env
-    security_opt: 
-      - apparmor:unconfined
-    network_mode: "bridge"
     ports:
       - "9443:9443"
     tty: true
     
   centos7:
-    image: 'centos:centos7'
+    image: maprcentos
     tty: true
     
