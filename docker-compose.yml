@@ -12,5 +12,6 @@ services:
     
   centos7:
     image: maprcentos
+    privileged: true
     tty: true
     
