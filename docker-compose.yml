@@ -6,12 +6,25 @@ services:
     image: maprinstaller
     env_file:
       - mapr-installer/installer.env
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
     ports:
       - "9443:9443"
+    privileged: true
     tty: true
     
   centos7:
     image: maprcentos
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     tty: true
     
