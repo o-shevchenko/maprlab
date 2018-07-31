@@ -8,13 +8,13 @@ RUN gpasswd -a mapr wheel
 RUN echo 'mapr:mapr' | chpasswd
 
 RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
-rm -f /lib/systemd/system/multi-user.target.wants/*;\
-rm -f /etc/systemd/system/*.wants/*;\
-rm -f /lib/systemd/system/local-fs.target.wants/*; \
-rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
-rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
-rm -f /lib/systemd/system/basic.target.wants/*;\
-rm -f /lib/systemd/system/anaconda.target.wants/*;
+    rm -f /lib/systemd/system/multi-user.target.wants/*;\
+    rm -f /etc/systemd/system/*.wants/*;\
+    rm -f /lib/systemd/system/local-fs.target.wants/*; \
+    rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+    rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+    rm -f /lib/systemd/system/basic.target.wants/*;\
+    rm -f /lib/systemd/system/anaconda.target.wants/*;
 
 RUN yum install -y curl initscripts net-tools nfs-utils rpcbind sudo wget which openssh-clients openssh-server sshpass java-1.8.0-openjdk-headless && yum -q clean all
 
@@ -40,10 +40,7 @@ RUN mkdir /home/mapr/.ssh/ && \
 	chmod 600 /home/mapr/.ssh/authorized_keys && \
 	chown -R mapr:mapr /home/mapr/.ssh/
 
-# Configure mapr
 RUN bash -c 'echo "mapr ALL=(ALL:ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)'
-
-VOLUME /run /tmp
 
 EXPOSE 22
 

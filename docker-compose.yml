@@ -27,4 +27,3 @@ services:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     tty: true
-    
