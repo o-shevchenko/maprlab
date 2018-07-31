@@ -5,7 +5,7 @@ Tool for instalation MapR cluster by MapR Installer
 
 ### Prerequisites
 1. Install [docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/)
-2. To use separated disk/partition for each container use devicemapper as device driver and configure disk via loop-lvm or direct-lvm. Do not use loop-lvm for performance testing since it slow. Use instead direct-lvm and preconfigure real cluster disks.
+2. To use separated disk/partition for each container use [devicemapper](https://docs.docker.com/storage/storagedriver/device-mapper-driver/) as device driver and configure disk via loop-lvm or direct-lvm. Do not use loop-lvm for performance testing since it slow. Use instead direct-lvm and preconfigure real cluster disks.
     1. Create the file 'sudo vim /etc/docker/daemon.json'
     2. Specify the following properties in daemon.json (for loop-lvm):
         ```
