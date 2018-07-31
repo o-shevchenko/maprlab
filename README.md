@@ -6,19 +6,19 @@ Tool for instalation MapR cluster by MapR Installer
 ### Prerequisites
 1. Install [docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/)
 2. To use separated disk/partition for each container use devicemapper as device driver and configure disk via loop-lvm or direct-lvm
-  2.1 Create the file 'sudo vim /etc/docker/daemon.json'
-  2.2 Specify the following properties in daemon.json:
-  ```
-        {
+    1. Create the file 'sudo vim /etc/docker/daemon.json'
+    2. Specify the following properties in daemon.json:
+        ```
+         {
           "storage-driver": "devicemapper",
           "storage-opts": [
             "dm.basesize=50G"
           ]
         }
-  ```
-  2.3 sudo service docker stop
-  2.4 sudo rm -rf /var/lib/docker (take a note that you delete all your docker data!!!)
-  2.5 sudo service docker start
+        ```
+    3. sudo service docker stop
+    4. sudo rm -rf /var/lib/docker (take a note that you delete all your docker data!!!)
+    5. sudo service docker start
 
 ### Steps
 1. cd maprlab/centos
