@@ -22,7 +22,7 @@ Tool for instalation MapR cluster by MapR Installer
 
 ### Build and run
 1. cd maprlab/centos
-2. docker build --rm -t maprcentos .
+2. docker build --rm -t maprcentos7 .
 3. cd maprlab/mapr-installer
 4. docker build -t maprinstaller .
-5. docker-compose up -d --scale centos7=2 (specify needed number of nodes in a cluster)
+5. docker-compose up -d --scale node=2 (specify needed number of nodes in a cluster)

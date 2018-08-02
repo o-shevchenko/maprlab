@@ -12,13 +12,15 @@ services:
       - seccomp:unconfined
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    links:
+      - node
     ports:
       - "9443:9443"
     privileged: true
     tty: true
     
-  centos7:
-    image: maprcentos
+  node:
+    image: maprcentos7
     cap_add:
       - SYS_ADMIN
     security_opt:
