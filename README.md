@@ -20,6 +20,23 @@ Tool for instalation MapR cluster by MapR Installer
     4. sudo rm -rf /var/lib/docker (take a note that you delete all your docker data!!!)
     5. sudo service docker start
 
+3. To use real cluster hardware you can create needed disk by LVM (to use by MapR-FS):
+    1. Create physical volume from existing disk
+        ```
+        pvcreate /dev/sdf
+        ```
+    2. Create the a volume group that consists of the LVM physical volumes you have created.
+        ``` 
+        vgcreate maprfsvg /dev/sdf
+        ```
+    3. Create the logical volume from the volume group you have created. 
+        This example creates a logical volume that uses 50 gigabytes of the volume group.
+        ```
+        lvcreate -L 50G -n maprfslv maprfsvg
+        ```
+
+4. If you want to run containers on multiple hosts (for example on performance cluster) you can use [Docker Swarm](https://docs.docker.com/engine/swarm/swarm-tutorial/)
+
 ### Build and run
 1. cd maprlab/centos
 2. docker build --rm -t maprcentos7 .
