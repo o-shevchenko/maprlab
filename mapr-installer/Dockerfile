@@ -7,6 +7,7 @@ RUN yum install -y curl initscripts net-tools sudo wget which openssh-clients op
 LABEL mapr.os=centos7
 
 COPY mapr-setup.sh /opt/mapr/installer/docker/
+COPY installer_stanza.yaml /opt/mapr/installer/examples
 EXPOSE 22 9443
 
 RUN /opt/mapr/installer/docker/mapr-setup.sh -r 'http://cv:Artifactory4CV!@34.197.167.22/artifactory/prestage/releases-dev' container installer

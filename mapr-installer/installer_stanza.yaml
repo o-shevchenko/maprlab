@@ -1,0 +1,84 @@
+# --- Advanced Silent installer template ---
+#DOC - indicates doc string
+#DOC 'Group_service' can be found with 'list services --type GROUP'
+#DOC 'Template_service' can be found with 'list services --type TEMPLATE'
+
+#DOC misc attributes
+environment:
+  #DOC mapr core version (required, must be 5.1.0 and above)
+  mapr_core_version: 6.0.1
+
+  #DOC patch file (optional, Can change mapr_core_version
+  #DOC Cannot add any services or change mep_version)
+  #patch_location: /home/mapr/mapr-5.2.0-patchfilexyz
+
+#DOC attributes for /config api
+config:
+  #DOC list of hosts we want to install packages on (required)
+  #DOC installer host must be one of the hosts in this list
+  hosts:
+    - 172.18.0.2
+  #DOC user id, must be present for every host defined above (required)
+  ssh_id: mapr
+  #DOC Password based login (required, either this or private key based)
+  #DOC password to login to the machine via ssh
+  ssh_password: mapr
+  #DOC boolean flag that indicates security is turned on (True) or off (False)
+  #DOC (optional) Default value is True for Mapr Core >= 6.0.0 and False otherwise
+  #security: True
+
+  #DOC boolean flag that indicates if NFS is to be enabled (True) or not (False).
+  #enable_nfs: False
+
+  #DOC string that indicates which version of NFS use. This flag is only meaingful for
+  #DOC MapR Core >= 6.1.0. For fresh installation of MapR Core >= 6.1.0 the default is
+  #DOC the string "NFSv4". If you want to install MapR Core 6.1.0 for example with
+  #DOC NFS version 3 instead, you would specify "NFSv3". This value is only valid for
+  #DOC fresh installs or incremental, not upgrade. You cannot change the NFS version
+  #DOC during an upgrade. Once the upgrade is complete, you can elect to switch NFS version
+  #DOC during subsequent incremental installs.
+  #DOC (optional) Default value is "NFSv4" for Mapr Core >= 6.1.0 and "NFSv3" otherwise
+  #nfs_type: "NFSv4"
+
+  #DOC cluster admin id and password are required when the mapr user does not exist
+  #DOC on all nodes and installer needs to create it. (Optional)
+  cluster_admin_id: mapr
+  cluster_admin_password: mapr
+
+  #DOC Private key based login, uncomment ssh_key_file
+  #DOC path to a file that contains the private key
+  #ssh_key_file: PATH_TO_PRIVATE_KEY
+
+  #DOC ssh port (optional)
+  ssh_port: 22
+  #DOC Database Administator login, used for mysql et al
+  #DOC required if you enable a shared mysql instance below
+  #db_admin_user: NAME OF DB ADMIN - TYPICALLY ROOT
+  #db_admin_password: PASSWORD FOR DB ADMIN
+
+  #DOC Log Stack Administator password, used for Elasticsearch' SeachGuard plugin
+  #DOC to secure the log stack.
+  #DOC Required if you enable security and ElasticSearch
+  #log_admin_password: PASSWORD FOR SearchGuard ADMIN
+
+  #DOC Grafana Administator password.
+  #DOC The grafana administrator userid is "admin" in insecure mode
+  #DOC and cluster_admin_id in secure mode
+  #DOC Required if you DO NOT enable security
+  #metrics_ui_admin_password: PASSWORD FOR Grafana ADMIN
+
+  #DOC license type (M3 = community edition, M5 = enterprise edition)
+  license_type: M5
+  #DOC MEP version (required only for Mapr 5.2.0 and above)
+  mep_version: 5.0.0
+  #DOC list of disks to install packages on (required)
+  disks:
+    - /dev/dm-2
+
+  #DOC disk stripe width (optional)
+  #disk_stripe: 3
+  #DOC name of the cluster (required)
+
+  cluster_name: my.cluster.com
+  #DOC elastic search path (optional)
+  #elasticsearch_path: /opt/mapr/es_db
