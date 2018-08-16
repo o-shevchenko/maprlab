@@ -16,7 +16,7 @@ RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == system
     rm -f /lib/systemd/system/basic.target.wants/*;\
     rm -f /lib/systemd/system/anaconda.target.wants/*;
 
-RUN yum install -y curl initscripts net-tools nfs-utils rpcbind sudo wget which openssh-clients openssh-server sshpass maven git && yum -q clean all
+RUN yum install -y curl initscripts net-tools nfs-utils rpcbind sudo wget which openssh-clients openssh-server sshpass maven git vim && yum -q clean all
 
 # Configure SSHD
 RUN mkdir -p /var/run/sshd ; chmod -rx /var/run/sshd

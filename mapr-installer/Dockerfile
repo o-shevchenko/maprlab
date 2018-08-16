@@ -2,7 +2,7 @@ FROM centos:centos7
 
 ENV container docker
 
-RUN yum install -y curl initscripts net-tools sudo wget which openssh-clients openssh-server sshpass java-1.8.0-openjdk-headless && yum -q clean all
+RUN yum install -y curl initscripts net-tools sudo wget which openssh-clients openssh-server sshpass vim java-1.8.0-openjdk-headless && yum -q clean all
 
 LABEL mapr.os=centos7
 
