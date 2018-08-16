@@ -82,3 +82,7 @@ config:
   cluster_name: my.cluster.com
   #DOC elastic search path (optional)
   #elasticsearch_path: /opt/mapr/es_db
+
+  services:
+    mapr-yarn:
+    mapr-timelineserver:
