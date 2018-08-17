@@ -3550,4 +3550,7 @@ esac
 # https://github.com/moby/moby/issues/8674
 sed -e '/tcp_retries2/ s/^#*/#/' -i /opt/mapr/installer/ansible/playbooks/group_vars/all
 
+# Workaround for IN-1998, should be removed when ticket will be resolved
+sed '94,99 {s/^/#/}' /opt/mapr/installer/ansible/playbooks/library/prereq/mapr_prereq.py > /opt/mapr/installer/ansible/playbooks/library/prereq/newmapr_prereq.py && mv /opt/mapr/installer/ansible/playbooks/library/prereq/newmapr_prereq.py /opt/mapr/installer/ansible/playbooks/library/prereq/mapr_prereq.py
+
 exit 0
