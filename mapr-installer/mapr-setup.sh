@@ -3545,4 +3545,9 @@ case "$MAIN_CMD" in
   *) usage ;;
 esac
 
+# Workaround for kernel (before 3.12) bug, should be removed for more new host OS
+# /proc/sys/net/ipv4/tcp_retries2 doesn't exist in docker container
+# https://github.com/moby/moby/issues/8674
+sed -e '/tcp_retries2/ s/^#*/#/' -i /opt/mapr/installer/ansible/playbooks/group_vars/all
+
 exit 0
