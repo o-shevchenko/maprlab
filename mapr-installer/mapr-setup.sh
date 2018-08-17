@@ -3556,4 +3556,9 @@ sed '94,99 {s/^/#/}' /opt/mapr/installer/ansible/playbooks/library/prereq/mapr_p
 # Workaround for IN-1999, should be removed when ticket will be resolved
 sed '230,232 {s/^/#/}' /opt/mapr/installer/ansible/playbooks/library/prereq/mapr_prereq.py > /opt/mapr/installer/ansible/playbooks/library/prereq/newmapr_prereq.py && mv /opt/mapr/installer/ansible/playbooks/library/prereq/newmapr_prereq.py /opt/mapr/installer/ansible/playbooks/library/prereq/mapr_prereq.py
 
+# Run cluster installation
+cd /opt/mapr/installer/
+su mapr
+./bin/mapr-installer-cli install -nv -t examples/installer_stanza.yaml -f
+
 exit 0
