@@ -17,7 +17,7 @@ config:
   #DOC list of hosts we want to install packages on (required)
   #DOC installer host must be one of the hosts in this list
   hosts:
-    - 172.18.0.2
+    - maprlab_node_1
   #DOC user id, must be present for every host defined above (required)
   ssh_id: mapr
   #DOC Password based login (required, either this or private key based)
