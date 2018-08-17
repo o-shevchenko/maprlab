@@ -12,8 +12,6 @@ services:
       - seccomp:unconfined
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    links:
-      - node
     ports:
       - "9443:9443"
     privileged: true
