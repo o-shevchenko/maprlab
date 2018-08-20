@@ -73,8 +73,9 @@ config:
   #DOC MEP version (required only for Mapr 5.2.0 and above)
   mep_version: 6.0.0
   #DOC list of disks to install packages on (required)
-  #disks:
-  # - /dev/dm-2
+  disks:
+    - /dev/dm-2
+    - /dev/dm-3
 
   #DOC disk stripe width (optional)
   #disk_stripe: 3
