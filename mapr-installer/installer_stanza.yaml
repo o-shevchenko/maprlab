@@ -6,7 +6,7 @@
 #DOC misc attributes
 environment:
   #DOC mapr core version (required, must be 5.1.0 and above)
-  mapr_core_version: 6.0.1
+  mapr_core_version: 6.1.0
 
   #DOC patch file (optional, Can change mapr_core_version
   #DOC Cannot add any services or change mep_version)
@@ -17,7 +17,8 @@ config:
   #DOC list of hosts we want to install packages on (required)
   #DOC installer host must be one of the hosts in this list
   hosts:
-    - maprlab_node_1
+    - node1.cluster.com
+    - node2.cluster.com
   #DOC user id, must be present for every host defined above (required)
   ssh_id: mapr
   #DOC Password based login (required, either this or private key based)
@@ -70,10 +71,10 @@ config:
   #DOC license type (M3 = community edition, M5 = enterprise edition)
   license_type: M5
   #DOC MEP version (required only for Mapr 5.2.0 and above)
-  mep_version: 5.0.0
+  mep_version: 6.0.0
   #DOC list of disks to install packages on (required)
-  disks:
-    - /dev/dm-2
+  #disks:
+  # - /dev/dm-2
 
   #DOC disk stripe width (optional)
   #disk_stripe: 3
@@ -86,3 +87,17 @@ config:
   services:
     mapr-yarn:
     mapr-timelineserver:
+
+hosts:
+#DOC first host
+#DOC hostname (required, must be specified in config.hosts)
+- id: node1.cluster.com
+  #DOC hashmap of disks to included
+  disks:
+    /dev/dm-2:
+#DOC second host
+#DOC hostname (required, must be specified in config.hosts)
+- id: node2.cluster.com
+  #DOC hashmap of disks to included
+  disks:
+    /dev/dm-3:
