@@ -73,9 +73,9 @@ config:
   #DOC MEP version (required only for Mapr 5.2.0 and above)
   mep_version: 6.0.0
   #DOC list of disks to install packages on (required)
-  disks:
-    - /dev/dm-2
-    - /dev/dm-3
+  #disks:
+  #  - /dev/dm-2
+  #  - /dev/dm-3
 
   #DOC disk stripe width (optional)
   #disk_stripe: 3
@@ -95,10 +95,10 @@ hosts:
 - id: node1.cluster.com
   #DOC hashmap of disks to included
   disks:
-    /dev/dm-2:
+    /dev/sde1:
 #DOC second host
 #DOC hostname (required, must be specified in config.hosts)
 - id: node2.cluster.com
   #DOC hashmap of disks to included
   disks:
-    /dev/dm-3:
+    /dev/sde2:
