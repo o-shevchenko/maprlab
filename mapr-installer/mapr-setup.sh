@@ -3551,10 +3551,10 @@ esac
 sed -e '/tcp_retries2/ s/^#*/#/' -i /opt/mapr/installer/ansible/playbooks/group_vars/all
 
 # Workaround for IN-1998, should be removed when ticket will be resolved
-sed '94,99 {s/^/#/}' /opt/mapr/installer/ansible/playbooks/library/prereq/mapr_prereq.py > /opt/mapr/installer/ansible/playbooks/library/prereq/newmapr_prereq.py && mv /opt/mapr/installer/ansible/playbooks/library/prereq/newmapr_prereq.py /opt/mapr/installer/ansible/playbooks/library/prereq/mapr_prereq.py
+#sed '94,99 {s/^/#/}' /opt/mapr/installer/ansible/playbooks/library/prereq/mapr_prereq.py > /opt/mapr/installer/ansible/playbooks/library/prereq/newmapr_prereq.py && mv /opt/mapr/installer/ansible/playbooks/library/prereq/newmapr_prereq.py /opt/mapr/installer/ansible/playbooks/library/prereq/mapr_prereq.py
 
 # Workaround for IN-1999, should be removed when ticket will be resolved
-sed '230,232 {s/^/#/}' /opt/mapr/installer/ansible/playbooks/library/prereq/mapr_prereq.py > /opt/mapr/installer/ansible/playbooks/library/prereq/newmapr_prereq.py && mv /opt/mapr/installer/ansible/playbooks/library/prereq/newmapr_prereq.py /opt/mapr/installer/ansible/playbooks/library/prereq/mapr_prereq.py
-sed '1572,1576 {s/^/#/}' /opt/mapr/installer/lib/managers.py > /opt/mapr/installer/lib/newmanagers.py && mv /opt/mapr/installer/lib/newmanagers.py /opt/mapr/installer/lib/managers.py
+#sed '230,232 {s/^/#/}' /opt/mapr/installer/ansible/playbooks/library/prereq/mapr_prereq.py > /opt/mapr/installer/ansible/playbooks/library/prereq/newmapr_prereq.py && mv /opt/mapr/installer/ansible/playbooks/library/prereq/newmapr_prereq.py /opt/mapr/installer/ansible/playbooks/library/prereq/mapr_prereq.py
+#sed '1572,1575 {s/^/#/}' /opt/mapr/installer/lib/managers.py > /opt/mapr/installer/lib/newmanagers.py && mv /opt/mapr/installer/lib/newmanagers.py /opt/mapr/installer/lib/managers.py
 
 exit 0
