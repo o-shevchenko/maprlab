@@ -17,7 +17,7 @@ sleep 30s
 sudo docker exec -i --user mapr maprlab_maprinstaller_1 ./opt/mapr/installer/bin/mapr-installer-cli install -nv -t /opt/mapr/installer/examples/installer_stanza.yaml -f
 
 # Run tests
-sudo docker exec -i --user mapr node1.cluster.com git clone -b $testBranch --depth 1 --single-branch https:\/\/c06048acc56b0ab1037f3db53ef2a15267a9ad9e@github.com\/mapr\/private-qa.git /home/mapr/private-qa
+sudo docker exec -i --user mapr node1.cluster.com git clone -b $testBranch --depth 1 --single-branch https:\/\/c6bacc13b2a2813fdc77b0762d0a99e0ea5aa9b0@github.com\/mapr\/private-qa.git /home/mapr/private-qa
 sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private-qa/new-ats/ ; chmod +x hadoop.sh ; ./hadoop.sh master ; mvn clean install -fae'
 
 sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private-qa/new-ats/mapreduce/mapreduce-tests/ && mvn clean install -Pfunctional'
