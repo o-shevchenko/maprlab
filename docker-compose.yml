@@ -12,6 +12,7 @@ services:
       - seccomp:unconfined
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /root/maprlab/mapr-installer/cluster-conf:/opt/mapr/installer/docker/conf
     ports:
       - "9443:9443"
     privileged: true

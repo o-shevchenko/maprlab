@@ -23,7 +23,7 @@ sudo docker exec -i --user mapr maprlab_maprinstaller_1 sudo service mapr-instal
 sleep 30s
 
 # Run installation via Installer CLI
-sudo docker exec -i --user mapr maprlab_maprinstaller_1 ./opt/mapr/installer/bin/mapr-installer-cli install -nv -t /opt/mapr/installer/examples/installer_stanza.yaml -f
+sudo docker exec -i --user mapr maprlab_maprinstaller_1 ./opt/mapr/installer/bin/mapr-installer-cli install -nv -t /opt/mapr/installer/docker/conf/installer_stanza.yaml -f
 
 sleep 30s
 
