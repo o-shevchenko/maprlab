@@ -43,3 +43,10 @@ Tool for instalation MapR cluster by MapR Installer
 3. cd maprlab/mapr-installer
 4. docker build -t maprinstaller .
 5. docker-compose up -d --scale node=2 (specify needed number of nodes in a cluster)
+
+### Install cluster
+1. Set needed configuration in installer_stanza.yaml
+2. Run the following command in Installer container
+      ```
+        ./opt/mapr/installer/bin/mapr-installer-cli install -nv -t /opt/mapr/installer/docker/conf/installer_stanza.yaml -f
+      ```
