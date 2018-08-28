@@ -53,17 +53,17 @@ Tool for instalation MapR cluster by MapR Installer
 
 ### Troubleshooting
 1. Java OOM
- Symptoms: java.lang.OutOfMemoryError: unable to create new native thread
- Solution: Increase Linux system threads limit 
-    ```
-    ulimit -u <number of threads>
-    or change default values in the following file:
-    /etc/security/limits.conf
-   
-    Add to end of file:
-    mapr - nofile 65536
-    mapr - nproc 64000
-    mapr - memlock unlimited
-    mapr - core unlimited
-    mapr - nice -10
-    ```      
+    Symptoms: java.lang.OutOfMemoryError: unable to create new native thread
+    Solution: Increase Linux system threads limit 
+        ```
+        ulimit -u <number of threads>
+        or change default values in the following file (on a host machine):
+        /etc/security/limits.conf
+        
+        Add to end of file:
+        mapr - nofile 65536
+        mapr - nproc 64000
+        mapr - memlock unlimited
+        mapr - core unlimited
+        mapr - nice -10
+        ```      
