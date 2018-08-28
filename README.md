@@ -47,6 +47,23 @@ Tool for instalation MapR cluster by MapR Installer
 ### Install cluster
 1. Set needed configuration in installer_stanza.yaml
 2. Run the following command in Installer container
-      ```
-        ./opt/mapr/installer/bin/mapr-installer-cli install -nv -t /opt/mapr/installer/docker/conf/installer_stanza.yaml -f
-      ```
+    ```
+    ./opt/mapr/installer/bin/mapr-installer-cli install -nv -t /opt/mapr/installer/docker/conf/installer_stanza.yaml -f
+    ```
+
+### Troubleshooting
+1. Java OOM
+ Symptoms: java.lang.OutOfMemoryError: unable to create new native thread
+ Solution: Increase Linux system threads limit 
+    ```
+    ulimit -u <number of threads>
+    or change default values in the following file:
+    /etc/security/limits.conf
+   
+    Add to end of file:
+    mapr - nofile 65536
+    mapr - nproc 64000
+    mapr - memlock unlimited
+    mapr - core unlimited
+    mapr - nice -10
+    ```      
