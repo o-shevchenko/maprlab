@@ -1,5 +1,8 @@
-# Up cluster nodes
 cd /root/maprlab
+# Destroy old cluster if needed
+sudo docker-compose down
+
+# Up cluster nodes
 sudo docker-compose up -d --scale node=2
 sudo docker rename maprlab_node_1 node1.cluster.com
 sudo docker rename maprlab_node_2 node2.cluster.com
@@ -31,6 +34,20 @@ sleep 30s
 sudo docker exec -i --user mapr node1.cluster.com bash -c 'echo -e "mapr\n" | maprlogin password'
 sudo docker exec -i --user mapr node2.cluster.com bash -c 'echo -e "mapr\n" | maprlogin password'
 
+# Reduce MFS memory consumption
+sudo docker exec -i node1.cluster.com bash -c 'sed -i 's/mfs.heapsize.maxpercent=85/mfs.heapsize.maxpercent=10/g' /opt/mapr/conf/warden.conf'
+sudo docker exec -i node1.cluster.com bash -c 'sed -i 's/mfs.heapsize.percent=35/mfs.heapsize.percent=10/g' /opt/mapr/conf/warden.conf'
+sudo docker exec -i node1.cluster.com service mapr-warden restart
+
+sudo docker exec -i node2.cluster.com bash -c 'sed -i 's/mfs.heapsize.maxpercent=85/mfs.heapsize.maxpercent=10/g' /opt/mapr/conf/warden.conf'
+sudo docker exec -i node2.cluster.com bash -c 'sed -i 's/mfs.heapsize.percent=35/mfs.heapsize.percent=10/g' /opt/mapr/conf/warden.conf'
+# Restart warden after MFS properties changing
+sudo docker exec -i node2.cluster.com service mapr-warden restart
+
+# Uncomment Linux resources limit (Added and commented by Installer for some reason)
+sudo docker exec -i node1.cluster.com bash -c 'sed -i 's/#mapr/mapr/g' /etc/security/limits.conf'
+sudo docker exec -i node2.cluster.com bash -c 'sed -i 's/#mapr/mapr/g' /etc/security/limits.conf'
+
 # Run tests
 TEST_RES_FILE_PATH="/home/mapr/private-qa/new-ats/mapreduce/surefire-reports/smoke/mapreduce-tests/testng-results.xml"
 JOB_PATH="/var/lib/jenkins/workspace/Hadoop_test/"
@@ -42,5 +59,5 @@ sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private
 # Copy test result from Docker container
 docker cp node1.cluster.com:$TEST_RES_FILE_PATH $JOB_PATH
 
-# Destroy cluster
-sudo docker-compose down
+# Halt cluster
+sudo docker-compose stop
