@@ -63,7 +63,7 @@ sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private
 sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private-qa/new-ats/mapreduce/mapreduce-tests/ && mvn clean test -Psmoke -DfailIfNoTests=false -Dmaven.test.failure.ignore=true'
 
 # Copy test result from Docker container
-docker cp node1.cluster.com:$TEST_RES_FILE_PATH $JOB_PATH
+sudo docker cp node1.cluster.com:$TEST_RES_FILE_PATH $JOB_PATH
 
 # Halt cluster
 sudo docker-compose stop
