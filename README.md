@@ -57,7 +57,7 @@ Tool for instalation MapR cluster by MapR Installer
     Solution: Increase Linux system threads limit 
     ```
         ulimit -u <number of threads>
-        or change default values in the following file (on a host machine):
+        or change default values in the following file:
         /etc/security/limits.conf
         
         Add to end of file:
