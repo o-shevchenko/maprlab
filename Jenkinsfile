@@ -57,7 +57,7 @@ sudo docker exec -i node2.cluster.com service mapr-warden restart
 # Run tests
 TEST_RES_FILE_PATH="/home/mapr/private-qa/new-ats/mapreduce/surefire-reports/smoke/mapreduce-tests/testng-results.xml"
 JOB_PATH="/var/lib/jenkins/workspace/Hadoop_test/"
-sudo docker exec -i --user mapr node1.cluster.com git clone -b $testBranch --depth 1 --single-branch https:\/\/o-shevchenko:maprgithub1@github.com\/mapr\/private-qa.git /home/mapr/private-qa
+sudo docker exec -i --user mapr node1.cluster.com git clone -b $testBranch --depth 1 --single-branch https:\/\/github.com\/mapr\/private-qa.git /home/mapr/private-qa
 sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private-qa/new-ats/ ; chmod +x hadoop.sh ; ./hadoop.sh master ; mvn clean install -fae'
 
 sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private-qa/new-ats/mapreduce/mapreduce-tests/ && mvn clean test -Psmoke -DfailIfNoTests=false -Dmaven.test.failure.ignore=true'
