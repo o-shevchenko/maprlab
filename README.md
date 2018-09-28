@@ -34,8 +34,10 @@ Tool for instalation MapR cluster by MapR Installer
         ```
         lvcreate -L 50G -n maprfslv maprfsvg
         ```
+        
+4. For now, Installer support only real disk devices or disk partitions (See IN-1999), doesn't support any loop or dm devices. So, you need to create a separated disk partition for each node (fdisk tool). Or use different disk devices for each node.
 
-4. If you want to run containers on multiple hosts (for example on performance cluster) you can use [Docker Swarm](https://docs.docker.com/engine/swarm/swarm-tutorial/)
+5. If you want to run containers on multiple hosts (for example on performance cluster) you can use [Docker Swarm](https://docs.docker.com/engine/swarm/swarm-tutorial/)
 
 ### Build and run
 1. cd maprlab/centos
