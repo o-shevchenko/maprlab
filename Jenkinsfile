@@ -42,7 +42,7 @@ sudo docker exec -i node1.cluster.com bash -c 'sed -i 's/mfs.heapsize.percent=35
 sudo docker exec -i node2.cluster.com bash -c 'sed -i 's/mfs.heapsize.maxpercent=85/mfs.heapsize.maxpercent=50/g' /opt/mapr/conf/warden.conf'
 sudo docker exec -i node2.cluster.com bash -c 'sed -i 's/mfs.heapsize.percent=35/mfs.heapsize.percent=20/g' /opt/mapr/conf/warden.conf'
 
-# Uncomment Linux resources limit (Added and commented by Installer for some reason)
+# Uncomment Linux resources limit (Added and commented by Installer for some reason see IN-2014)
 sudo docker exec -i node1.cluster.com bash -c 'sed -i 's/#mapr/mapr/g' /etc/security/limits.conf'
 sudo docker exec -i node2.cluster.com bash -c 'sed -i 's/#mapr/mapr/g' /etc/security/limits.conf'
 
@@ -55,15 +55,34 @@ sudo docker exec -i node1.cluster.com service mapr-warden start
 sudo docker exec -i node2.cluster.com service mapr-warden restart
 
 # Run tests
-TEST_RES_FILE_PATH="/home/mapr/private-qa/new-ats/mapreduce/surefire-reports/smoke/mapreduce-tests/testng-results.xml"
-JOB_PATH="/var/lib/jenkins/workspace/Hadoop_test/"
-sudo docker exec -i --user mapr node1.cluster.com git clone -b $testBranch --depth 1 --single-branch https:\/\/github.com\/mapr\/private-qa.git /home/mapr/private-qa
-sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private-qa/new-ats/ ; chmod +x hadoop.sh ; ./hadoop.sh master ; mvn clean install -fae'
+TEST_RES_FILE_PATH_MAPREDUCE_SMOKE="/home/mapr/private-qa/new-ats/mapreduce/surefire-reports/smoke/mapreduce-tests/testng-results.xml"
+TEST_RES_FILE_PATH_MAPREDUCE_FUNCTIONAL="/home/mapr/private-qa/new-ats/mapreduce/surefire-reports/functional/mapreduce-tests/testng-results.xml"
 
-sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private-qa/new-ats/mapreduce/mapreduce-tests/ && mvn clean test -Psmoke -DfailIfNoTests=false -Dmaven.test.failure.ignore=true'
+TEST_RES_FILE_PATH_HADOOP_SMOKE="/home/mapr/private-qa/new-ats/hadoop2/surefire-reports/smoke/hadoop2-tests/testng-results.xml"
+TEST_RES_FILE_PATH_HADOOP_FUNCTIONAL="/home/mapr/private-qa/new-ats/hadoop2/surefire-reports/functional/hadoop2-tests/testng-results.xml"
+TEST_RES_FILE_PATH_HADOOP_BUGS="/home/mapr/private-qa/new-ats/hadoop2/surefire-reports/bugs/hadoop2-tests/testng-results.xml"
+
+
+JOB_TEST_RESULT_PATH="/var/lib/jenkins/workspace/Hadoop_test/test_results"
+sudo docker exec -i --user mapr node1.cluster.com git clone -b $testBranch --depth 1 --single-branch https:\/\/o-shevchenko:maprgithub1@github.com\/mapr\/private-qa.git /home/mapr/private-qa
+sudo docker exec -i --user mapr node1.cluster.com bash -c "cd /home/mapr/private-qa/new-ats/ ; chmod +x hadoop.sh ; ./hadoop.sh $testBranch ; mvn clean install -fae"
+
+sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private-qa/new-ats/mapreduce/mapreduce-tests/ && mvn test -Psmoke -DfailIfNoTests=false -Dmaven.test.failure.ignore=true'
+#sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private-qa/new-ats/mapreduce/mapreduce-tests/ && mvn test -Pfunctional -DfailIfNoTests=false -Dmaven.test.failure.ignore=true'
+
+sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private-qa/new-ats/hadoop2/hadoop2-tests/ && mvn test -Psmoke -DfailIfNoTests=false -Dmaven.test.failure.ignore=true'
+sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private-qa/new-ats/hadoop2/hadoop2-tests/ && mvn test -Pfunctional -DfailIfNoTests=false -Dmaven.test.failure.ignore=true'
+sudo docker exec -i --user mapr node1.cluster.com bash -c 'cd /home/mapr/private-qa/new-ats/hadoop2/hadoop2-tests/ && mvn test -Pbugs -DfailIfNoTests=false -Dmaven.test.failure.ignore=true'
+
 
 # Copy test result from Docker container
-sudo docker cp node1.cluster.com:$TEST_RES_FILE_PATH $JOB_PATH
+sudo mkdir $JOB_TEST_RESULT_PATH
+sudo docker cp node1.cluster.com:$TEST_RES_FILE_PATH_MAPREDUCE_SMOKE $JOB_TEST_RESULT_PATH/mapreduce_smoke_testng-results.xml
+#sudo docker cp node1.cluster.com:$TEST_RES_FILE_PATH_MAPREDUCE_FUNCTIONAL $JOB_TEST_RESULT_PATH/mapreduce_functional_testng-results.xml
+
+sudo docker cp node1.cluster.com:$TEST_RES_FILE_PATH_HADOOP_SMOKE $JOB_TEST_RESULT_PATH/hadoop_smoke_testng-results.xml
+sudo docker cp node1.cluster.com:$TEST_RES_FILE_PATH_HADOOP_FUNCTIONAL $JOB_TEST_RESULT_PATH/hadoop_functional_testng-results.xml
+sudo docker cp node1.cluster.com:$TEST_RES_FILE_PATH_HADOOP_BUGS $JOB_TEST_RESULT_PATH/hadoop_bugs_testng-results.xml
 
 # Halt cluster
 sudo docker-compose stop
